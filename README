@@ -1,8 +1,15 @@
 This script converts downloaded HGMD data into a custom annotation
 file that can be imported into VariantStudio.
 
+Most people are just interested in downloading the compiled conversion
+  program here: https://github.com/emargulies/hgmdToVS/releases
+
 By default, it will process all *.txt files in the current working
 directory.
+
+----------
+The following describes how to build the perl script into a versioned
+Windows executable:
 
 To prepare this script to be run in a windows enviornment without the
 need for running a Perl script:
