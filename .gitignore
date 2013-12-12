@@ -1,0 +1,12 @@
+*~
+.DS_Store
+hgmd_variantstudio_custom_annotation.tsv
+HGMD_Search_Results*.txt
+dat
+doc/*
+!doc/*.tex
+!doc/*.JPG
+exe/*
+!exe/build_exe.bat
+!exe/dist.sh
+dist/

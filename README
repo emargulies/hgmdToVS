@@ -1,0 +1,38 @@
+This script converts downloaded HGMD data into a custom annotation
+file that can be imported into VariantStudio.
+
+By default, it will process all *.txt files in the current working
+directory.
+
+To prepare this script to be run in a windows enviornment without the
+need for running a Perl script:
+
+0) Do a git commit and tag the version you want to release.
+
+1) run make_dist.sh -- this will create a copy of documentation with
+   the verion number into dist/, and also a copy of the perl script
+   with the verion number in exe/ and dist/.
+
+2) Convert the Perl script to a windows executable. This requires that
+   you have Strawberry Perl and the pp module installed on a Windows
+   box/VM. See below on how to do that.
+   a) Open a windows command prompt.
+   b) Change to the directory containing the exe subdir.
+   c) Type the following command:
+      build_exe.bat
+
+3) Then run dist.sh in exe. This will zip the Windows binary and move
+   it to dist/. And then clean up the exe/ subdir.
+
+You should now have a version of the executable and documentation
+tagged with the current version of the script being used.
+
+----------
+Installing Strawberry Perl and PP:
+  A) Find a windows box (or VM)
+
+  B) Install Strawberry Perl http://strawberryperl.com/
+
+  C) Install the pp Perl module (only needs to be done once):
+      i) Windows Menu -> Strawberry Perl -> Tools -> CPAN Client
+     ii) Run the following command from that window: "install pp"

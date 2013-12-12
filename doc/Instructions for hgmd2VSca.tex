@@ -1,0 +1,183 @@
+\documentclass[11pt,titlepage,a4paper]{article}
+
+%\usepackage{natbib}
+\usepackage{palatino}
+\usepackage{titlepic}
+\usepackage{graphicx,varioref,setspace}
+\renewcommand{\ttdefault}{cmtt}
+\usepackage[pdftex,colorlinks,citecolor=blue]{hyperref}
+
+\usepackage{geometry}
+
+\hyphenation{VariantStudio}
+\raggedright
+
+\newcommand{\vsurl}{https://www.illumina.com/clinical/clinical_informatics/illumina-variantstudio.ilmn}
+
+\newcommand{\hgmdurl}{http://www.biobase-international.com/product/hgmd}
+
+\newcommand{\downloadURL}{https://www.github.com/emargulies/hgmdToVS/releases}
+
+\begin{document}
+
+\titlepic{\includegraphics[width=4in]{ILLUMINA_LOGO_CMYK_new.pdf}}
+
+\title{Converting your HGMD data into a custom annotation file for VariantStudio}
+
+\author{Elliott H. Margulies, Ph.D.\\
+  \emph{Director}, Scientific Research\\
+  Illumina Cambridge, Ltd.  \vspace{0.5em}  \\
+  \texttt{emargulies@illumina.com} }
+
+\date{\today \\ $VERSION$ }
+
+\maketitle
+
+\newgeometry{margin=2cm}
+
+\tableofcontents
+
+\vspace{1em}
+\hrule
+
+\section{Overview}
+
+This program converts data downloaded from \href{\hgmdurl}{HGMD Professional}\footnote{Human Gene Mutation Database} into a custom annotation file suitable for importing into \href{\vsurl}{VariantStudio}. Access and use of HGMD data in this mannor requires a suitable license from Biobase. With this program, you can now use appropriately licensed HGMD data within VariantStudio, allowing you to identify variants in your sample(s) that overlap specific entries in HGMD.
+
+\section{Quick Start}
+
+This section outlines the process of downloading, converting, and importing HGMD Professional data into VariantStudio.
+
+\begin{enumerate}
+	\item Download HGMD Data
+		\begin{enumerate}
+			\item login to HGMD Professional
+			\item click on "Advanced" at the top of the page
+			\item click on "Substitutions" on the left side of the page
+			\item scroll down to the "Other" section and select "Chromosome", then type in "chr" (without quotes) into the text box.
+			\item click on "Submit"
+			\item When the Results page appears, click on "Click Here to Save Results as Text File" to download these data to your computer. This is one of the two files that will be used by the conversion program.
+			\item Repeat the above but click on "Micro-lesions" instead of "Substitutions". 
+		\end{enumerate}
+	\item Download the conversion program from \href{\downloadURL}{the following link}\footnote{\url{\downloadURL}} and unzip it into a newly created subdirectory. This program is designed to run on the Windows Operating system\footnote{The program is a Perl script wrapped up into a Windows executable using \href{http://search.cpan.org/~autrijus/PAR/script/pp}{pp}. If you prefer to convert on a Mac or Linux computer, please \href{mailto:emargulies@illumina.com}{contact me} and I can provide you with the Perl script wrapped in this program}.
+	
+\item Move your downloaded HGMD files into this newly created subdirectory, so that the conversion program and your HGMD data files are in the same subdirectory.
+
+\item Click on the conversion program, called "Convert HGMD to VariantStudio Custom Annotation". It should open up a windows command prompt that informs you of the progress of the conversion process. This should take less than 1 minute.
+
+\item The resulting \texttt{hgmd\_variantstudio\_custom\_annotation.tsv} file can now be selected in VariantStudio when loading in custom variant annotations.
+
+\end{enumerate}
+
+\section{Detailed Instructions}
+
+Since the use of HGMD Professional data requires a valid and appropriate license, these data must be loaded in to VariantStudio on an individual basis. The following subsections describe how to download these data from HGMD and convert them into a file that is suitable for loading into VariantStudio.
+
+\subsection{Downloading HGMD Data}
+
+You must first login to the HGMD Professional website. Once successful, you should see the following page:
+\begin{center}
+\includegraphics[width=4in]{hgmdmain.JPG}
+\end{center}
+
+   At the bottom center of the red rectangle at the top of the page, click on \texttt{Advanced}.
+   
+You should now see the following page:
+
+\begin{center}
+\includegraphics[width=4in]{advanced.JPG}
+\end{center}
+
+SNVs and Indels are handled separately in HGMD. The following two subsections describe how to download each dataset, which will both be needed for full representation of HGMD variants in VariantStudio.
+
+\subsubsection{Substitutions}
+
+Inside the left red column, click on \texttt{Substitutions}. This will bring you to the following page:
+
+\begin{center}
+\includegraphics[width=4in]{advancedsnp.JPG}
+\end{center}
+
+Scroll to the bottom of that page, and in the last row titled \texttt{Other}, select \texttt{Chromosome} from the selection box. And then type in "chr" (without the quotes) in the text box to the right of that selection box. Keep "Fuzzy Search" checked. These details are pictured in the below screen shot:
+
+\begin{center}
+\includegraphics[width=4in]{advancedsnpchr.JPG}
+\end{center}
+
+Then click on the "Submit" button at the bottom of the page. After a moment, this will bring you to the following page:
+
+\begin{center}
+\includegraphics[width=4in]{advancedsnpchrresults.JPG}
+\end{center}
+
+Near the top of that page, click on "Click Here to Save Results as Text File". This will download that file to your computer. The file will be named something like \texttt{HGMD\_Search\_Results.txt}. When you download more than one time, you'll begin to see files like \texttt{HGMD\_Search\_Results (1).txt}.
+
+{\bf NOTE:} Please keep track of these files as they are the input to the conversion program (see below). \vspace{1em}
+
+The next step is to repeat the similar process for Indels.
+
+\subsubsection{Micro-lesions}
+
+HGMD refers to Indels as "Micro-lesions". On the left hand side of the page in the red column, click on \texttt{Micro-lesions}. This should bring you to the following page:
+
+\begin{center}
+\includegraphics[width=4in]{advancedindel.JPG}
+\end{center}
+
+As before, select \texttt{Chromosome} in the bottom selection box. Then type "chr" (without the quotes) in the text box to the right of the selection box. Your web page should look like the following:
+
+\begin{center}
+\includegraphics[width=4in]{advancedindelchr.JPG}
+\end{center}
+
+Click on the \texttt{Submit} button. After a few moments, you'll get to the following web page:
+
+\begin{center}
+\includegraphics[width=4in]{advancedindelchrresults.JPG}
+\end{center}
+
+Near the top of that page, click on "Click Here to Save Results as Text File". This will download that file to your computer. If you've already downloaded the Substitutions file and haven't moved it yet, then this file will likely be named something like: \texttt{HGMD\_Search\_Results (1).txt}.
+
+\subsection{Create a working subdirectory}
+
+Move both the substitutions and indels files into a new/empty subdirectory.
+
+\subsection{Downloading the Conversion Tool}
+
+The program to convert these downloaded HGMD data files into a custom annotation file suitable for importing into VariantStudio can be accessed from \href{\downloadURL}{the following link}\footnote{\url{\downloadURL}}. Download the \texttt{convert.zip} file.
+  
+Unzip the downloaded file into the same subdirectory that contains your downloaded HGMD data.
+
+\subsection{Converting your Data}
+
+Double click on the program named \texttt{Convert HGMD to VariantStudio Custom Annotation.exe}. This should open a command prompt that will inform you of the status of the conversion process.
+
+When this program successfully executes, the resulting output file\footnote{\texttt{hgmd\_variantstudio\_custom\_annotation.tsv}} can be uploaded into VariantStudio as described below.
+
+\section{Importing into VariantStudio}
+
+After you've loaded your VCF(s) into VariantStudio, click on the \texttt{Annotation \and Classification} tab, followed by the \texttt{Custom Annotation} button. It should give you a dialog box as pictured below:
+
+\begin{center}
+\includegraphics[width=5in]{vsload.JPG}
+\end{center}
+
+Select the \texttt{hgmd\_variantstudio\_custom\_annotation.tsv} file that was created by the converter program, and you should then see any HGMD entries as custom annotations.
+
+The following fields are used in the custom annotation:
+
+\begin{description}
+\item[Custom Annotation:] HGMD ID
+\item[Annotation 2:] Disease Description
+\item[Annotation 3:] Disease Classification (e.g., DM, DFP, etc.)
+\item[Annotation 4:] Transcript ID on which the annotation resides 
+\end{description}
+
+Some of these columns are not displayed by default. From the \texttt{Home} tab, you'll need to click on \texttt{Column Order} button in the \texttt{Table Options} section. You should see the following window, which can be used to manage the visibility and order of all the available annotation columns.
+
+\begin{center}
+\includegraphics[width=4in]{vscolumnorder.JPG}
+\end{center}
+
+\end{document}
+
